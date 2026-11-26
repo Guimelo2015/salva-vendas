@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#E11D48">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Ofertas relâmpago de Black Friday por tempo limitado. Garanta pelo WhatsApp.">
+  <title>Black Friday — Ofertas Relâmpago</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23E11D48'/%3E%3Cpath d='M36 6 14 36h15l-3 22 24-32H34z' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
+  <style>
+    :root {
+      --bg: #0B0B0E;
+      --surface: #16161D;
+      --border: #272732;
+      --text: #F5F5F7;
+      --muted: #A1A1AE;
+      --urgent: #E11D48;
+      --gold: #F59E0B;
+      --whats: #22C55E;
+      --whats-hover: #16A34A;
+      --on-whats: #04210F;
+      --radius: 14px;
+      --gutter: 12px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a:focus-visible,
+    input:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .urgency {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 4px 10px;
+      padding: calc(8px + env(safe-area-inset-top)) var(--gutter) 8px;
+      background: var(--urgent);
+      color: #fff;
+      font-size: clamp(0.66rem, 3vw, 0.82rem);
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-align: center;
+      text-transform: uppercase;
+      box-shadow: 0 6px 18px rgb(0 0 0 / 0.45);
+    }
+
+    .timer {
+      padding: 3px 10px;
+      border-radius: 8px;
+      background: rgb(0 0 0 / 0.32);
+      font-size: 1rem;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      text-transform: none;
+      white-space: nowrap;
+    }
+
+    .hero {
+      padding-block: 16px 14px;
+      text-align: center;
+      background: radial-gradient(70% 100% at 50% 0%, rgb(225 29 72 / 0.18), transparent 75%);
+    }
+
+    .brand {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 6px 10px;
+    }
+
+    .brand-name {
+      font-size: clamp(1.15rem, 5.5vw, 1.6rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .seal {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px 3px 6px;
+      border: 1px solid rgb(245 158 11 / 0.5);
+      border-radius: 99px;
+      background: rgb(245 158 11 / 0.12);
+      color: var(--gold);
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    .seal svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .headline {
+      max-width: 640px;
+      margin: 8px auto 0;
+      font-size: clamp(1.25rem, 6vw, 2.2rem);
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      text-wrap: balance;
+    }
+
+    .promo {
+      max-width: 560px;
+      margin: 12px auto 0;
+      padding: 10px 14px;
+      border: 1px dashed var(--gold);
+      border-radius: 12px;
+      background: linear-gradient(100deg, rgb(245 158 11 / 0.18), rgb(225 29 72 / 0.14));
+      color: #FDE7B5;
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-wrap: balance;
+    }
+
+    .search {
+      position: relative;
+      display: block;
+      max-width: 480px;
+      margin: 12px auto 0;
+    }
+
+    .search svg {
+      position: absolute;
+      top: 50%;
+      left: 14px;
+      width: 18px;
+      height: 18px;
+      color: var(--muted);
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .search input {
+      width: 100%;
+      height: 48px;
+      padding: 0 14px 0 42px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 500;
+      text-overflow: ellipsis;
+    }
+
+    .search input::placeholder {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    main {
+      flex: 1;
+      padding-bottom: 28px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+      list-style: none;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .card-media {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background: #1F1F29;
+    }
+
+    .card-media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .tags {
+      position: absolute;
+      inset: 6px 6px auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .tag {
+      padding: 4px 5px;
+      border-radius: 7px;
+      font-size: 0.58rem;
+      font-weight: 900;
+      line-height: 1.25;
+      box-shadow: 0 2px 10px rgb(0 0 0 / 0.35);
+    }
+
+    .tag-discount {
+      flex: none;
+      background: var(--urgent);
+      color: #fff;
+      font-size: 0.68rem;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .tag-badge {
+      min-width: 0;
+      margin-left: auto;
+      background: var(--gold);
+      color: #1C1200;
+      text-align: right;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .card-body {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: 6px;
+      padding: 10px 8px 8px;
+    }
+
+    .card-name {
+      display: -webkit-box;
+      min-height: 2.6em;
+      overflow: hidden;
+      font-size: 0.86rem;
+      font-weight: 600;
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+    }
+
+    .card-stock {
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .card-price {
+      display: flex;
+      flex-direction: column;
+      margin-top: auto;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card-old {
+      color: var(--muted);
+      font-size: 0.74rem;
+    }
+
+    .card-promo {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      column-gap: 4px;
+    }
+
+    .card-promo small {
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    .card-promo strong {
+      font-size: clamp(1.2rem, 5.6vw, 1.5rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      width: 100%;
+      min-height: 50px;
+      padding: 7px 8px;
+      border-radius: 10px;
+      background: var(--whats);
+      color: var(--on-whats);
+      font-size: 0.8rem;
+      font-weight: 800;
+      line-height: 1.2;
+      text-align: center;
+      text-decoration: none;
+      touch-action: manipulation;
+      transition: background-color 0.15s, transform 0.1s;
+    }
+
+    .cta svg {
+      flex: none;
+      width: 20px;
+      height: 20px;
+    }
+
+    .cta span {
+      text-wrap: balance;
+    }
+
+    .cta[href]:hover {
+      background: var(--whats-hover);
+    }
+
+    .cta[href]:active {
+      background: var(--whats-hover);
+      transform: scale(0.97);
+    }
+
+    .cta[aria-disabled="true"] {
+      background: var(--border);
+      color: var(--muted);
+    }
+
+    .empty {
+      padding: 40px 16px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .empty a {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 12px;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    footer {
+      padding-block: 26px calc(90px + env(safe-area-inset-bottom));
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    footer strong {
+      display: block;
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    footer p {
+      margin-top: 6px;
+    }
+
+    .instagram {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 44px;
+      margin-top: 6px;
+      padding-inline: 12px;
+      color: var(--text);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .instagram svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .disclaimer {
+      font-size: 0.74rem;
+      font-style: italic;
+    }
+
+    .fab {
+      position: fixed;
+      right: calc(14px + env(safe-area-inset-right));
+      bottom: calc(14px + env(safe-area-inset-bottom));
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 50px;
+      height: 50px;
+      border: 1px solid #3A3A49;
+      border-radius: 99px;
+      background: rgb(22 22 29 / 0.94);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.55);
+    }
+
+    .fab svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .fab span {
+      display: none;
+    }
+
+    .noscript {
+      padding: 32px 16px;
+      text-align: center;
+    }
+
+    @media (min-width: 360px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 720px) {
+      :root {
+        --gutter: 20px;
+      }
+
+      .hero {
+        padding-block: 30px 22px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .card-body {
+        gap: 8px;
+        padding: 14px;
+      }
+
+      .card-name {
+        font-size: 0.98rem;
+      }
+
+      .card-stock {
+        font-size: 0.78rem;
+      }
+
+      .card-promo strong {
+        font-size: 1.55rem;
+      }
+
+      .tags {
+        inset: 10px 10px auto;
+      }
+
+      .tag {
+        padding: 5px 8px;
+        font-size: 0.7rem;
+      }
+
+      .tag-discount {
+        font-size: 0.82rem;
+      }
+
+      .cta {
+        font-size: 0.9rem;
+      }
+
+      .fab {
+        padding-inline: 18px;
+      }
+
+      .fab span {
+        display: inline;
+      }
+    }
+
+    @media (min-width: 1000px) {
+      .grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (hover: hover) {
+      .card {
+        transition: border-color 0.2s, transform 0.2s;
+      }
+
+      .card:hover {
+        border-color: #45455A;
+        transform: translateY(-3px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" hidden>
+    <symbol id="icon-whatsapp" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </symbol>
+  </svg>
+
+  <div class="urgency">
+    <span>⚡ Black Friday Relâmpago • Encerra em:</span>
+    <span class="timer" id="timer" role="timer">00h : 00m : 00s</span>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <div class="brand">
+        <p class="brand-name" data-store-name></p>
+        <span class="seal">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M12 1 3 4.5V11c0 5.6 3.8 10.4 9 12 5.2-1.6 9-6.4 9-12V4.5zm-1.4 15.2-4-4L8 10.8l2.6 2.6L16 8l1.4 1.4z"/>
+          </svg>
+          OFERTAS VERIFICADAS
+        </span>
+      </div>
+      <h1 class="headline" id="tagline"></h1>
+      <p class="promo" id="promo" hidden></p>
+      <label class="search">
+        <span class="sr-only">Buscar oferta pelo nome</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m20 20-3.8-3.8"/>
+        </svg>
+        <input type="search" id="search" placeholder="Buscar oferta pelo nome..." autocomplete="off" enterkeyhint="search">
+      </label>
+    </div>
+  </header>
+
+  <main class="container">
+    <p class="sr-only" id="searchStatus" role="status"></p>
+    <ul class="grid" id="grid" aria-label="Ofertas"></ul>
+    <div class="empty" id="empty" hidden>
+      <p>Nenhuma oferta encontrada com esse nome.</p>
+      <a id="emptyLink" target="_blank" rel="noopener noreferrer">Perguntar à loja no WhatsApp →</a>
+    </div>
+    <noscript><p class="noscript">Ative o JavaScript do navegador para ver as ofertas.</p></noscript>
+  </main>
+
+  <footer>
+    <div class="container">
+      <strong data-store-name></strong>
+      <p id="deliveryInfo"></p>
+      <a class="instagram" id="instagram" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor"/>
+        </svg>
+        <span></span>
+      </a>
+      <p class="disclaimer">Preços válidos apenas enquanto durar o cronômetro ou o estoque.</p>
+    </div>
+  </footer>
+
+  <a class="fab" id="fab" target="_blank" rel="noopener noreferrer" aria-label="Tirar dúvidas com a loja no WhatsApp">
+    <svg aria-hidden="true"><use href="#icon-whatsapp"/></svg>
+    <span>Dúvidas?</span>
+  </a>
+
+  <template id="cardTemplate">
+    <li class="card">
+      <div class="card-media">
+        <img width="500" height="500" loading="lazy" decoding="async">
+        <div class="tags">
+          <span class="tag tag-discount" hidden></span>
+          <span class="tag tag-badge" hidden></span>
+        </div>
+      </div>
+      <div class="card-body">
+        <h2 class="card-name"></h2>
+        <p class="card-stock" hidden></p>
+        <p class="card-price">
+          <s class="card-old"></s>
+          <span class="card-promo"><small>Por</small> <strong></strong></span>
+        </p>
+        <a class="cta" target="_blank" rel="noopener noreferrer">
+          <svg aria-hidden="true"><use href="#icon-whatsapp"/></svg>
+          <span>Garantir no WhatsApp</span>
+        </a>
+      </div>
+    </li>
+  </template>
+
+  <script>
+    const STORE_CONFIG = {
+      storeName: "Urban Fit Store",
+      storeTagline: "Ofertas Relâmpago de Black Friday — Estoque Limitado",
+      whatsappNumber: "5575999999999",
+      countdownEndTime: "22:00",
+      promoBannerText: "🔥 FRETE GRÁTIS ACIMA DE R$ 150 OU 5% EXTRA NO PIX!",
+      instagramHandle: "@urbanfitstore",
+      addressOrDeliveryInfo: "Retirada na loja ou entrega rápida via motoboy",
+      products: [
+        {
+          id: 1,
+          name: "Tênis Run Flex Vermelho",
+          image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&h=500&q=70",
+          oldPrice: 399.90,
+          promoPrice: 229.90,
+          badge: "MAIS VENDIDO",
+          stockLeft: 4
+        },
+        {
+          id: 2,
+          name: "Creatina Monohidratada 300g",
+          image: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=500&h=500&q=70",
+          oldPrice: 129.90,
+          promoPrice: 69.90,
+          badge: "ÚLTIMAS UNIDADES",
+          stockLeft: 3
+        },
+        {
+          id: 3,
+          name: "Camiseta Dry Fit Essential Branca",
+          image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=500&h=500&q=70",
+          oldPrice: 89.90,
+          promoPrice: 49.90,
+          badge: ""
+        },
+        {
+          id: 4,
+          name: "Moletom Canguru com Capuz Cinza",
+          image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=500&h=500&q=70",
+          oldPrice: 199.90,
+          promoPrice: 119.90,
+          badge: "",
+          stockLeft: 7
+        },
+        {
+          id: 5,
+          name: "Mochila Urban Academia 25L",
+          image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=500&h=500&q=70",
+          oldPrice: 249.90,
+          promoPrice: 149.90,
+          badge: ""
+        },
+        {
+          id: 6,
+          name: "Smartwatch Fit com Pulseira Branca",
+          image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&h=500&q=70",
+          oldPrice: 349.90,
+          promoPrice: 199.90,
+          badge: "OFERTA TOP",
+          stockLeft: 5
+        },
+        {
+          id: 7,
+          name: "Proteína Vegetal Cacau 450g",
+          image: "https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=500&h=500&q=70",
+          oldPrice: 159.90,
+          promoPrice: 99.90,
+          badge: ""
+        },
+        {
+          id: 8,
+          name: "Garrafa Térmica Inox 500ml Verde",
+          image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=500&h=500&q=70",
+          oldPrice: 99.90,
+          promoPrice: 54.90,
+          badge: "",
+          stockLeft: 9
+        }
+      ]
+    };
+
+    (() => {
+      "use strict";
+
+      const FALLBACK_WINDOW = 4 * 60 * 60 * 1000;
+      const FALLBACK_IMAGE = "data:image/svg+xml," + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">' +
+        '<rect width="500" height="500" fill="#1F1F29"/>' +
+        '<path d="M175 195h150l15 155H160zM210 195v-20a40 40 0 0 1 80 0v20" fill="none" stroke="#6B6B7B" stroke-width="14" stroke-linejoin="round"/>' +
+        '<text x="250" y="405" fill="#8B8B9B" font-family="sans-serif" font-size="28" text-anchor="middle">Foto indisponível</text>' +
+        '</svg>'
+      );
+
+      const $ = (selector) => document.querySelector(selector);
+      const currency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+      const phone = String(STORE_CONFIG.whatsappNumber).replace(/\D/g, "");
+      const whatsappUrl = (message) => `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      const normalize = (text) => String(text).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+
+      function renderStore() {
+        const { storeName, storeTagline, promoBannerText, instagramHandle, addressOrDeliveryInfo } = STORE_CONFIG;
+
+        document.title = `${storeName} | Black Friday Relâmpago`;
+        document.querySelectorAll("[data-store-name]").forEach((element) => {
+          element.textContent = storeName;
+        });
+        $("#tagline").textContent = storeTagline;
+        $("#deliveryInfo").textContent = addressOrDeliveryInfo;
+
+        $("#promo").textContent = promoBannerText;
+        $("#promo").hidden = !promoBannerText.trim();
+
+        const handle = instagramHandle.trim().replace(/^@/, "");
+        $("#instagram").hidden = !handle;
+        $("#instagram").href = `https://www.instagram.com/${encodeURIComponent(handle)}/`;
+        $("#instagram span").textContent = `@${handle}`;
+
+        const helpUrl = whatsappUrl(`Olá! Estou na Vitrine de Black Friday da ${storeName} e quero tirar uma dúvida.`);
+        $("#fab").href = helpUrl;
+        $("#emptyLink").href = helpUrl;
+      }
+
+      function createCard(product) {
+        const card = $("#cardTemplate").content.firstElementChild.cloneNode(true);
+        const find = (selector) => card.querySelector(selector);
+        const { name, image, oldPrice, promoPrice, badge, stockLeft } = product;
+        const hasDiscount = oldPrice > promoPrice;
+        const discount = hasDiscount ? Math.floor(((oldPrice - promoPrice) / oldPrice) * 100 + 1e-9) : 0;
+
+        card.dataset.search = normalize(name);
+
+        const picture = find("img");
+        picture.alt = name;
+        picture.addEventListener("error", () => {
+          picture.src = FALLBACK_IMAGE;
+        }, { once: true });
+        picture.src = image || FALLBACK_IMAGE;
+
+        find(".tag-discount").textContent = `-${discount}% OFF`;
+        find(".tag-discount").hidden = discount < 1;
+        find(".tag-badge").textContent = badge || "";
+        find(".tag-badge").hidden = !badge;
+
+        find(".card-name").textContent = name;
+        find(".card-name").title = name;
+
+        const soldOut = stockLeft === 0;
+        if (stockLeft > 0) {
+          find(".card-stock").textContent = stockLeft === 1
+            ? "🔥 Resta apenas 1 un."
+            : `🔥 Restam apenas ${stockLeft} un.`;
+          find(".card-stock").hidden = false;
+        }
+
+        find(".card-old").textContent = hasDiscount ? `De ${currency.format(oldPrice)}` : "";
+        find(".card-old").hidden = !hasDiscount;
+        find(".card-promo strong").textContent = currency.format(promoPrice);
+
+        const button = find(".cta");
+        if (soldOut) {
+          button.setAttribute("aria-disabled", "true");
+          button.querySelector("span").textContent = "Esgotado";
+        } else {
+          const previous = hasDiscount ? ` de ${currency.format(oldPrice)}` : "";
+          button.href = whatsappUrl(
+            `Olá! Vi a oferta de *${name}*${previous} por *${currency.format(promoPrice)}* na Vitrine de Black Friday da ${STORE_CONFIG.storeName} e quero garantir o meu!`
+          );
+          button.setAttribute("aria-label", `Garantir no WhatsApp: ${name}`);
+        }
+
+        return card;
+      }
+
+      function renderProducts() {
+        const fragment = document.createDocumentFragment();
+        STORE_CONFIG.products.forEach((product) => fragment.append(createCard(product)));
+        $("#grid").append(fragment);
+      }
+
+      function setupSearch() {
+        const input = $("#search");
+        const filter = () => {
+          const terms = normalize(input.value).split(/\s+/);
+          let visible = 0;
+
+          for (const card of $("#grid").children) {
+            const match = terms.every((term) => card.dataset.search.includes(term));
+            card.hidden = !match;
+            visible += match ? 1 : 0;
+          }
+
+          $("#empty").hidden = visible > 0;
+          $("#searchStatus").textContent = input.value.trim() ? `${visible} oferta(s) encontrada(s)` : "";
+        };
+
+        input.addEventListener("input", filter);
+        input.addEventListener("keydown", (event) => {
+          if (event.key === "Enter") input.blur();
+        });
+        filter();
+      }
+
+      function resolveDeadline() {
+        const now = Date.now();
+        const time = /^([01]?\d|2[0-3]):([0-5]\d)$/.exec(String(STORE_CONFIG.countdownEndTime).trim());
+
+        if (time) {
+          const today = new Date().setHours(Number(time[1]), Number(time[2]), 0, 0);
+          if (today > now) return today;
+        }
+
+        const key = `salva-vendas:${STORE_CONFIG.storeName}:${STORE_CONFIG.countdownEndTime}`;
+        try {
+          const saved = Number(localStorage.getItem(key));
+          if (saved > now && saved - now <= FALLBACK_WINDOW) return saved;
+          localStorage.setItem(key, String(now + FALLBACK_WINDOW));
+        } catch {
+          return now + FALLBACK_WINDOW;
+        }
+        return now + FALLBACK_WINDOW;
+      }
+
+      function startCountdown() {
+        const display = $("#timer");
+        const pad = (value) => String(value).padStart(2, "0");
+        let deadline = resolveDeadline();
+        let timeout;
+
+        const tick = () => {
+          clearTimeout(timeout);
+          if (deadline <= Date.now()) deadline = resolveDeadline();
+
+          const remaining = Math.max(0, deadline - Date.now());
+          const seconds = Math.ceil(remaining / 1000);
+          display.textContent = `${pad(Math.floor(seconds / 3600))}h : ${pad(Math.floor(seconds / 60) % 60)}m : ${pad(seconds % 60)}s`;
+          timeout = setTimeout(tick, (remaining % 1000) || 1000);
+        };
+
+        document.addEventListener("visibilitychange", () => {
+          if (!document.hidden) tick();
+        });
+        tick();
+      }
+
+      startCountdown();
+      renderStore();
+      renderProducts();
+      setupSearch();
+    })();
+  </script>
+</body>
+</html>
