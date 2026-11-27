@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#E11D48">
   <meta name="color-scheme" content="dark">
-  <meta name="description" content="Ofertas relâmpago de Black Friday por tempo limitado. Garanta pelo WhatsApp.">
+  <meta name="description" content="Ofertas relâmpago de Black Friday por tempo limitado. Encomende pelo WhatsApp.">
   <title>Black Friday — Ofertas Relâmpago</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23E11D48'/%3E%3Cpath d='M36 6 14 36h15l-3 22 24-32H34z' fill='%23fff'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -574,7 +574,7 @@
   </svg>
 
   <div class="urgency">
-    <span>⚡ Black Friday Relâmpago • Encerra em:</span>
+    <span id="urgencyLabel">⚡ Black Friday Relâmpago • Termina em:</span>
     <span class="timer" id="timer" role="timer">00h : 00m : 00s</span>
   </div>
 
@@ -591,22 +591,23 @@
       </div>
       <h1 class="headline" id="tagline"></h1>
       <p class="promo" id="promo" hidden></p>
-      <label class="search">
-        <span class="sr-only">Buscar oferta pelo nome</span>
+      <label class="search" id="searchBox">
+        <span class="sr-only">Procurar oferta pelo nome</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
           <circle cx="11" cy="11" r="7"/>
           <path d="m20 20-3.8-3.8"/>
         </svg>
-        <input type="search" id="search" placeholder="Buscar oferta pelo nome..." autocomplete="off" enterkeyhint="search">
+        <input type="search" id="search" placeholder="Procurar oferta pelo nome..." autocomplete="off" enterkeyhint="search">
       </label>
     </div>
   </header>
 
   <main class="container">
     <p class="sr-only" id="searchStatus" role="status"></p>
+    <p class="empty" id="state" hidden></p>
     <ul class="grid" id="grid" aria-label="Ofertas"></ul>
     <div class="empty" id="empty" hidden>
-      <p>Nenhuma oferta encontrada com esse nome.</p>
+      <p>Não encontrámos nenhuma oferta com esse nome.</p>
       <a id="emptyLink" target="_blank" rel="noopener noreferrer">Perguntar à loja no WhatsApp →</a>
     </div>
     <noscript><p class="noscript">Ative o JavaScript do navegador para ver as ofertas.</p></noscript>
@@ -624,11 +625,11 @@
         </svg>
         <span></span>
       </a>
-      <p class="disclaimer">Preços válidos apenas enquanto durar o cronômetro ou o estoque.</p>
+      <p class="disclaimer">Preços válidos apenas enquanto durar o cronómetro ou o stock.</p>
     </div>
   </footer>
 
-  <a class="fab" id="fab" target="_blank" rel="noopener noreferrer" aria-label="Tirar dúvidas com a loja no WhatsApp">
+  <a class="fab" id="fab" target="_blank" rel="noopener noreferrer" aria-label="Falar com a loja no WhatsApp">
     <svg aria-hidden="true"><use href="#icon-whatsapp"/></svg>
     <span>Dúvidas?</span>
   </a>
@@ -647,11 +648,11 @@
         <p class="card-stock" hidden></p>
         <p class="card-price">
           <s class="card-old"></s>
-          <span class="card-promo"><small>Por</small> <strong></strong></span>
+          <span class="card-promo"><small>Agora</small> <strong></strong></span>
         </p>
         <a class="cta" target="_blank" rel="noopener noreferrer">
           <svg aria-hidden="true"><use href="#icon-whatsapp"/></svg>
-          <span>Garantir no WhatsApp</span>
+          <span>Encomendar no WhatsApp</span>
         </a>
       </div>
     </li>
@@ -660,19 +661,21 @@
   <script>
     const STORE_CONFIG = {
       storeName: "Urban Fit Store",
-      storeTagline: "Ofertas Relâmpago de Black Friday — Estoque Limitado",
-      whatsappNumber: "5575999999999",
+      storeTagline: "Ofertas Relâmpago de Black Friday — Stock Limitado",
+      whatsappNumber: "5575981806350",
+      countdownEndDate: "",
       countdownEndTime: "22:00",
-      promoBannerText: "🔥 FRETE GRÁTIS ACIMA DE R$ 150 OU 5% EXTRA NO PIX!",
+      promoBannerText: "🔥 PORTES GRÁTIS EM ENCOMENDAS ACIMA DE 50€!",
       instagramHandle: "@urbanfitstore",
-      addressOrDeliveryInfo: "Retirada na loja ou entrega rápida via motoboy",
+      addressOrDeliveryInfo: "Recolha na loja ou entrega rápida na sua zona",
+      showSearch: true,
       products: [
         {
           id: 1,
-          name: "Tênis Run Flex Vermelho",
+          name: "Sapatilhas Run Flex Vermelhas",
           image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&h=500&q=70",
-          oldPrice: 399.90,
-          promoPrice: 229.90,
+          oldPrice: 79.90,
+          promoPrice: 44.90,
           badge: "MAIS VENDIDO",
           stockLeft: 4
         },
@@ -680,42 +683,42 @@
           id: 2,
           name: "Creatina Monohidratada 300g",
           image: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=500&h=500&q=70",
-          oldPrice: 129.90,
-          promoPrice: 69.90,
+          oldPrice: 29.90,
+          promoPrice: 17.90,
           badge: "ÚLTIMAS UNIDADES",
           stockLeft: 3
         },
         {
           id: 3,
-          name: "Camiseta Dry Fit Essential Branca",
+          name: "T-shirt Dry Fit Essential Branca",
           image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=500&h=500&q=70",
-          oldPrice: 89.90,
-          promoPrice: 49.90,
+          oldPrice: 19.90,
+          promoPrice: 10.90,
           badge: ""
         },
         {
           id: 4,
-          name: "Moletom Canguru com Capuz Cinza",
+          name: "Camisola com Capuz Cinzenta",
           image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=500&h=500&q=70",
-          oldPrice: 199.90,
-          promoPrice: 119.90,
+          oldPrice: 39.90,
+          promoPrice: 23.90,
           badge: "",
           stockLeft: 7
         },
         {
           id: 5,
-          name: "Mochila Urban Academia 25L",
+          name: "Mochila Urban Ginásio 25L",
           image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=500&h=500&q=70",
-          oldPrice: 249.90,
-          promoPrice: 149.90,
+          oldPrice: 49.90,
+          promoPrice: 29.90,
           badge: ""
         },
         {
           id: 6,
-          name: "Smartwatch Fit com Pulseira Branca",
+          name: "Smartwatch Fit Bracelete Branca",
           image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&h=500&q=70",
-          oldPrice: 349.90,
-          promoPrice: 199.90,
+          oldPrice: 69.90,
+          promoPrice: 39.90,
           badge: "OFERTA TOP",
           stockLeft: 5
         },
@@ -723,20 +726,25 @@
           id: 7,
           name: "Proteína Vegetal Cacau 450g",
           image: "https://images.unsplash.com/photo-1579722820308-d74e571900a9?auto=format&fit=crop&w=500&h=500&q=70",
-          oldPrice: 159.90,
-          promoPrice: 99.90,
+          oldPrice: 32.90,
+          promoPrice: 19.90,
           badge: ""
         },
         {
           id: 8,
           name: "Garrafa Térmica Inox 500ml Verde",
           image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=500&h=500&q=70",
-          oldPrice: 99.90,
-          promoPrice: 54.90,
+          oldPrice: 19.90,
+          promoPrice: 11.90,
           badge: "",
           stockLeft: 9
         }
       ]
+    };
+
+    const BACKEND = {
+      supabaseUrl: "https://hsaomakvlfrpfihuaexg.supabase.co",
+      supabaseKey: "sb_publishable_sZWDSieHqIuAU0dHOhstuQ_3xsdL3mf"
     };
 
     (() => {
@@ -752,9 +760,9 @@
       );
 
       const $ = (selector) => document.querySelector(selector);
-      const currency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
-      const phone = String(STORE_CONFIG.whatsappNumber).replace(/\D/g, "");
-      const whatsappUrl = (message) => `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      const currency = new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR" });
+      const whatsappUrl = (message) => `https://wa.me/${String(STORE_CONFIG.whatsappNumber).replace(/\D/g, "")}?text=${encodeURIComponent(message)}`;
+      let ended = false;
       const normalize = (text) => String(text).normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
 
       function renderStore() {
@@ -769,13 +777,14 @@
 
         $("#promo").textContent = promoBannerText;
         $("#promo").hidden = !promoBannerText.trim();
+        $("#searchBox").hidden = STORE_CONFIG.showSearch === false;
 
         const handle = instagramHandle.trim().replace(/^@/, "");
         $("#instagram").hidden = !handle;
         $("#instagram").href = `https://www.instagram.com/${encodeURIComponent(handle)}/`;
         $("#instagram span").textContent = `@${handle}`;
 
-        const helpUrl = whatsappUrl(`Olá! Estou na Vitrine de Black Friday da ${storeName} e quero tirar uma dúvida.`);
+        const helpUrl = whatsappUrl(`Olá! Estou na Montra de Black Friday da ${storeName} e queria esclarecer uma dúvida.`);
         $("#fab").href = helpUrl;
         $("#emptyLink").href = helpUrl;
       }
@@ -812,20 +821,24 @@
           find(".card-stock").hidden = false;
         }
 
-        find(".card-old").textContent = hasDiscount ? `De ${currency.format(oldPrice)}` : "";
+        find(".card-old").textContent = hasDiscount ? `Antes ${currency.format(oldPrice)}` : "";
         find(".card-old").hidden = !hasDiscount;
         find(".card-promo strong").textContent = currency.format(promoPrice);
 
         const button = find(".cta");
+        const label = button.querySelector("span");
         if (soldOut) {
           button.setAttribute("aria-disabled", "true");
-          button.querySelector("span").textContent = "Esgotado";
+          label.textContent = "Esgotado";
+        } else if (ended) {
+          label.textContent = "Perguntar no WhatsApp";
+          button.href = whatsappUrl(`Olá! Vi *${name}* na Montra da ${STORE_CONFIG.storeName}. A campanha terminou, mas queria saber o preço atual.`);
         } else {
           const previous = hasDiscount ? ` de ${currency.format(oldPrice)}` : "";
           button.href = whatsappUrl(
-            `Olá! Vi a oferta de *${name}*${previous} por *${currency.format(promoPrice)}* na Vitrine de Black Friday da ${STORE_CONFIG.storeName} e quero garantir o meu!`
+            `Olá! Vi a oferta de *${name}*${previous} por *${currency.format(promoPrice)}* na Montra de Black Friday da ${STORE_CONFIG.storeName} e quero encomendar!`
           );
-          button.setAttribute("aria-label", `Garantir no WhatsApp: ${name}`);
+          button.setAttribute("aria-label", `Encomendar no WhatsApp: ${name}`);
         }
 
         return card;
@@ -834,7 +847,7 @@
       function renderProducts() {
         const fragment = document.createDocumentFragment();
         STORE_CONFIG.products.forEach((product) => fragment.append(createCard(product)));
-        $("#grid").append(fragment);
+        $("#grid").replaceChildren(fragment);
       }
 
       function setupSearch() {
@@ -850,7 +863,7 @@
           }
 
           $("#empty").hidden = visible > 0;
-          $("#searchStatus").textContent = input.value.trim() ? `${visible} oferta(s) encontrada(s)` : "";
+          $("#searchStatus").textContent = input.value.trim() ? `Ofertas encontradas: ${visible}` : "";
         };
 
         input.addEventListener("input", filter);
@@ -858,18 +871,21 @@
           if (event.key === "Enter") input.blur();
         });
         filter();
+        return filter;
       }
 
       function resolveDeadline() {
         const now = Date.now();
-        const time = /^([01]?\d|2[0-3]):([0-5]\d)$/.exec(String(STORE_CONFIG.countdownEndTime).trim());
+        const fixed = Date.parse(STORE_CONFIG.countdownEndDate);
+        if (!Number.isNaN(fixed)) return fixed;
 
+        const time = /^([01]?\d|2[0-3]):([0-5]\d)$/.exec(String(STORE_CONFIG.countdownEndTime).trim());
         if (time) {
           const today = new Date().setHours(Number(time[1]), Number(time[2]), 0, 0);
           if (today > now) return today;
         }
 
-        const key = `salva-vendas:${STORE_CONFIG.storeName}:${STORE_CONFIG.countdownEndTime}`;
+        const key = `montra:${STORE_CONFIG.storeName}:${STORE_CONFIG.countdownEndTime}`;
         try {
           const saved = Number(localStorage.getItem(key));
           if (saved > now && saved - now <= FALLBACK_WINDOW) return saved;
@@ -880,7 +896,7 @@
         return now + FALLBACK_WINDOW;
       }
 
-      function startCountdown() {
+      function startCountdown(onEnd) {
         const display = $("#timer");
         const pad = (value) => String(value).padStart(2, "0");
         let deadline = resolveDeadline();
@@ -890,7 +906,17 @@
           clearTimeout(timeout);
           if (deadline <= Date.now()) deadline = resolveDeadline();
 
-          const remaining = Math.max(0, deadline - Date.now());
+          const remaining = deadline - Date.now();
+          if (remaining <= 0) {
+            display.hidden = true;
+            $("#urgencyLabel").textContent = "A campanha de Black Friday terminou";
+            if (!ended) {
+              ended = true;
+              onEnd();
+            }
+            return;
+          }
+
           const seconds = Math.ceil(remaining / 1000);
           display.textContent = `${pad(Math.floor(seconds / 3600))}h : ${pad(Math.floor(seconds / 60) % 60)}m : ${pad(seconds % 60)}s`;
           timeout = setTimeout(tick, (remaining % 1000) || 1000);
@@ -902,10 +928,57 @@
         tick();
       }
 
-      startCountdown();
-      renderStore();
-      renderProducts();
-      setupSearch();
+      async function loadStore(id) {
+        const base = BACKEND.supabaseUrl.replace(/\/+$/, "");
+        const response = await fetch(`${base}/rest/v1/rpc/obter_montra`, {
+          method: "POST",
+          headers: {
+            apikey: BACKEND.supabaseKey,
+            Authorization: `Bearer ${BACKEND.supabaseKey}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ p_id: id })
+        });
+        const store = response.ok ? await response.json() : null;
+        if (!store) throw new Error("unavailable");
+        store.products = store.products.map((item) => ({
+          ...item,
+          image: `${base}/storage/v1/object/public/montras/${item.photo}`
+        }));
+        return store;
+      }
+
+      async function init() {
+        const id = new URLSearchParams(location.search).get("loja");
+        const state = $("#state");
+
+        if (id !== null) {
+          $("#searchBox").hidden = true;
+          $("#fab").hidden = true;
+          $("#instagram").hidden = true;
+          state.textContent = "A carregar a montra…";
+          state.hidden = false;
+          try {
+            Object.assign(STORE_CONFIG, await loadStore(id));
+          } catch {
+            $(".urgency").hidden = true;
+            state.textContent = "Esta montra ainda não está disponível. Volte a abrir o link dentro de alguns minutos.";
+            return;
+          }
+          state.hidden = true;
+          $("#fab").hidden = false;
+        }
+
+        renderStore();
+        renderProducts();
+        const filter = setupSearch();
+        startCountdown(() => {
+          renderProducts();
+          filter();
+        });
+      }
+
+      init();
     })();
   </script>
 </body>

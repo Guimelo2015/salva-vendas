@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#E11D48">
+  <meta name="color-scheme" content="dark">
+  <title>Montra Relâmpago de Black Friday para Comércio Local</title>
+  <meta name="description" content="A sua montra online de Black Friday, com cronómetro e encomendas diretas no WhatsApp. Pronta a partilhar em menos de 30 minutos. Desde 29€.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_PT">
+  <meta property="og:title" content="Montra Relâmpago de Black Friday">
+  <meta property="og:description" content="Cronómetro, preços com desconto e encomendas diretas no seu WhatsApp. Desde 29€.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23E11D48'/%3E%3Cpath d='M36 6 14 36h15l-3 22 24-32H34z' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+  <style>
+    :root {
+      --bg: #09090B;
+      --card: #141419;
+      --border: #27272A;
+      --text: #FAFAFA;
+      --muted: #A1A1AA;
+      --urgent: #E11D48;
+      --gold: #F59E0B;
+      --green: #22C55E;
+      --green-hover: #16A34A;
+      --on-green: #04210F;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin-inline: auto;
+      padding-inline: 16px;
+    }
+
+    .urgency {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 3px 8px;
+      padding: calc(8px + env(safe-area-inset-top)) 12px 8px;
+      background: var(--urgent);
+      color: #fff;
+      font-size: clamp(0.64rem, 2.8vw, 0.8rem);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+      text-align: center;
+      text-transform: uppercase;
+      box-shadow: 0 6px 18px rgb(0 0 0 / 0.45);
+    }
+
+    .timer {
+      padding: 1px 9px;
+      border-radius: 7px;
+      background: rgb(0 0 0 / 0.32);
+      font-size: 0.9rem;
+      font-variant-numeric: tabular-nums;
+      text-transform: none;
+      white-space: nowrap;
+    }
+
+    section {
+      padding-block: 52px;
+      scroll-margin-top: 62px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      text-wrap: balance;
+    }
+
+    h2 {
+      max-width: 760px;
+      margin-inline: auto;
+      font-size: clamp(1.6rem, 5.5vw, 2.4rem);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .lead {
+      max-width: 640px;
+      margin: 14px auto 0;
+      color: var(--muted);
+      text-align: center;
+      text-wrap: pretty;
+    }
+
+    .hero {
+      padding-block: 36px 48px;
+      text-align: center;
+      background: radial-gradient(75% 90% at 50% 0%, rgb(225 29 72 / 0.22), transparent 72%);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 7px 14px;
+      border: 1px solid rgb(245 158 11 / 0.5);
+      border-radius: 99px;
+      background: rgb(245 158 11 / 0.12);
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    h1 {
+      max-width: 880px;
+      margin: 20px auto 0;
+      font-size: clamp(1.95rem, 7.4vw, 3.6rem);
+      font-weight: 800;
+    }
+
+    .hero .lead {
+      max-width: 700px;
+      font-size: clamp(0.98rem, 3.6vw, 1.15rem);
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 440px;
+      margin: 28px auto 0;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 54px;
+      padding: 12px 22px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      font: inherit;
+      font-size: 0.98rem;
+      font-weight: 800;
+      line-height: 1.3;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.15s, border-color 0.15s, transform 0.1s;
+    }
+
+    .button:active {
+      transform: scale(0.98);
+    }
+
+    .button-green {
+      background: var(--green);
+      color: var(--on-green);
+      box-shadow: 0 10px 30px rgb(34 197 94 / 0.25);
+    }
+
+    .button-green:hover {
+      background: var(--green-hover);
+    }
+
+    .button-outline {
+      border-color: #52525B;
+      background: transparent;
+      color: var(--text);
+    }
+
+    .button-outline:hover {
+      border-color: var(--text);
+    }
+
+    .button:disabled {
+      opacity: 0.6;
+      cursor: progress;
+    }
+
+    .alt {
+      border-block: 1px solid var(--border);
+      background: #0F0F13;
+    }
+
+    .demo {
+      display: grid;
+      justify-items: center;
+      gap: 32px;
+      margin-top: 36px;
+    }
+
+    .phone {
+      position: relative;
+      width: min(100%, 320px);
+      padding: 10px;
+      border: 2px solid #3F3F46;
+      border-radius: 48px;
+      background: #000;
+      box-shadow: 0 30px 80px rgb(0 0 0 / 0.6), 0 0 60px rgb(225 29 72 / 0.18);
+    }
+
+    .phone::before,
+    .phone::after {
+      content: "";
+      position: absolute;
+      width: 4px;
+      border-radius: 4px;
+      background: #3F3F46;
+    }
+
+    .phone::before {
+      top: 118px;
+      left: -6px;
+      height: 62px;
+    }
+
+    .phone::after {
+      top: 150px;
+      right: -6px;
+      height: 86px;
+    }
+
+    .island {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 34px;
+      border-radius: 38px 38px 0 0;
+      background: #0B0B0E;
+    }
+
+    .island::before {
+      content: "";
+      width: 90px;
+      height: 22px;
+      border-radius: 99px;
+      background: #000;
+    }
+
+    .screen {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 390 / 760;
+      border-radius: 0 0 38px 38px;
+      background: #0B0B0E;
+    }
+
+    .screen iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 390px;
+      height: 760px;
+      border: 0;
+      transform-origin: 0 0;
+    }
+
+    .proof {
+      margin-bottom: 14px;
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .phone-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .phone-column .button {
+      margin-top: 24px;
+    }
+
+    .highlights {
+      display: grid;
+      gap: 14px;
+      width: min(100%, 440px);
+      list-style: none;
+    }
+
+    .highlights li {
+      position: relative;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      border-radius: 14px;
+      background: var(--card);
+      font-weight: 600;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 36px;
+      list-style: none;
+    }
+
+    .step {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--card);
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--urgent);
+      font-weight: 800;
+    }
+
+    .step h3 {
+      margin-top: 16px;
+      font-size: 1.12rem;
+    }
+
+    .step p {
+      margin-top: 8px;
+      color: var(--muted);
+    }
+
+    .plans {
+      display: grid;
+      gap: 28px;
+      max-width: 840px;
+      margin: 40px auto 0;
+    }
+
+    .plan {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 30px 22px 22px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--card);
+    }
+
+    .plan-featured {
+      border: 2px solid var(--gold);
+      box-shadow: 0 0 50px rgb(245 158 11 / 0.14);
+    }
+
+    .ribbon {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      padding: 4px 14px;
+      border-radius: 99px;
+      background: var(--gold);
+      color: #1C1200;
+      font-size: 0.72rem;
+      font-weight: 800;
+      white-space: nowrap;
+      transform: translateX(-50%);
+    }
+
+    .plan h3 {
+      font-size: 1.25rem;
+    }
+
+    .price {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .price strong {
+      font-size: 3.4rem;
+      font-weight: 800;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .price span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .features {
+      display: grid;
+      gap: 11px;
+      margin-block: 22px 26px;
+      list-style: none;
+      font-size: 0.95rem;
+    }
+
+    .features li {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .features li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .plan .button {
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .note {
+      max-width: 640px;
+      margin: 24px auto 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .form {
+      display: grid;
+      gap: 18px;
+      max-width: 720px;
+      margin: 32px auto 0;
+    }
+
+    fieldset {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 14px;
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--card);
+    }
+
+    legend {
+      float: left;
+      width: 100%;
+      font-weight: 800;
+    }
+
+    legend + * {
+      clear: left;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      min-width: 0;
+      height: 48px;
+      padding: 0 12px;
+      border: 1px solid #3F3F46;
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--text);
+      font: inherit;
+      font-size: 1rem;
+    }
+
+    .field input[type="file"] {
+      padding-block: 10px;
+      font-size: 0.85rem;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .choices {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .choice {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 52px;
+      padding: 8px 12px;
+      border: 1px solid #3F3F46;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .choice:has(input:checked) {
+      border-color: var(--green);
+      background: rgb(34 197 94 / 0.1);
+    }
+
+    .choice input,
+    .consent input {
+      flex: none;
+      width: 20px;
+      height: 20px;
+      accent-color: var(--green);
+    }
+
+    .articles {
+      display: grid;
+      gap: 14px;
+    }
+
+    .remove {
+      justify-self: start;
+      min-height: 40px;
+      border: 0;
+      background: none;
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.82rem;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .status {
+      min-height: 1.5em;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .status-error {
+      color: #FB7185;
+    }
+
+    .success {
+      display: grid;
+      justify-items: center;
+      gap: 16px;
+      max-width: 620px;
+      margin: 32px auto 0;
+      padding: 28px 20px;
+      border: 2px solid var(--green);
+      border-radius: 20px;
+      background: var(--card);
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .faq {
+      display: grid;
+      gap: 12px;
+      max-width: 760px;
+      margin: 32px auto 0;
+    }
+
+    details {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--card);
+    }
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 58px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      list-style: none;
+      cursor: pointer;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      color: var(--gold);
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    details p {
+      padding: 0 18px 18px;
+      color: var(--muted);
+    }
+
+    footer {
+      padding-block: 32px calc(100px + env(safe-area-inset-bottom));
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.84rem;
+      text-align: center;
+    }
+
+    footer strong {
+      display: block;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    footer p {
+      max-width: 620px;
+      margin: 8px auto 0;
+    }
+
+    .fab {
+      position: fixed;
+      right: calc(14px + env(safe-area-inset-right));
+      bottom: calc(14px + env(safe-area-inset-bottom));
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-width: 54px;
+      min-height: 54px;
+      border: 1px solid #3F3F46;
+      border-radius: 99px;
+      background: rgb(20 20 25 / 0.96);
+      font-size: 0.76rem;
+      font-weight: 600;
+      line-height: 1.35;
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.55);
+    }
+
+    .fab svg {
+      flex: none;
+      width: 26px;
+      height: 26px;
+      color: var(--green);
+    }
+
+    .fab span {
+      display: none;
+      max-width: 230px;
+    }
+
+    .noscript {
+      padding: 24px;
+      text-align: center;
+    }
+
+    @media (min-width: 640px) {
+      .actions {
+        flex-direction: row;
+        justify-content: center;
+        max-width: none;
+      }
+
+      .plans {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .fab {
+        padding: 8px 18px 8px 14px;
+      }
+
+      .fab span {
+        display: block;
+      }
+    }
+
+    @media (min-width: 900px) {
+      section {
+        padding-block: 76px;
+      }
+
+      .demo {
+        grid-template-columns: 340px minmax(0, 440px);
+        align-items: center;
+        justify-content: center;
+        gap: 80px;
+      }
+
+      .highlights {
+        gap: 52px;
+      }
+
+      .highlights li::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        width: 56px;
+        border-top: 2px dashed var(--gold);
+      }
+
+      .highlights li::after {
+        content: "";
+        position: absolute;
+        top: calc(50% - 5px);
+        right: calc(100% + 52px);
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--gold);
+        box-shadow: 0 0 0 5px rgb(245 158 11 / 0.2);
+      }
+
+      .steps {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 479px) {
+      .choices {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      * {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="urgency" id="urgency">
+    <span id="urgencyText">⚡ Black Friday • Montra online em menos de 30 minutos • Vagas relâmpago encerram em:</span>
+    <span class="timer" id="timer" role="timer">00h : 00m : 00s</span>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <p class="badge">🇵🇹 ESPECIAL BLACK FRIDAY PARA COMÉRCIO LOCAL EM PORTUGAL</p>
+      <h1>Não perca vendas hoje a responder ‘qual é o preço?’ um a um no WhatsApp.</h1>
+      <p class="lead">Receba a sua Montra Relâmpago de Black Friday com cronómetro em contagem decrescente e botão de encomenda direta no seu WhatsApp. Pronta a partilhar em menos de 30 minutos — sem mensalidades obrigatórias e sem complicações técnicas.</p>
+      <div class="actions">
+        <a class="button button-green" href="#planos">Criar a Minha Montra Agora (desde 29€)</a>
+        <a class="button button-outline" href="#demonstracao">👀 Ver Exemplo a Funcionar</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="alt" id="demonstracao">
+      <div class="container">
+        <h2>Veja exatamente como os seus clientes vão ver a sua loja no telemóvel</h2>
+        <p class="lead"><em>Experimente abaixo a montra real. Clique nos botões verdes para testar como a encomenda chega mastigada no seu WhatsApp.</em></p>
+        <div class="demo">
+          <div class="phone-column">
+            <p class="proof">Loja de exemplo · a funcionar agora</p>
+            <div class="phone">
+              <div class="island" aria-hidden="true"></div>
+              <div class="screen" id="screen">
+                <iframe id="demoFrame" title="Demonstração da montra no telemóvel" loading="lazy"></iframe>
+              </div>
+            </div>
+            <a class="button button-outline" id="demoLink" target="_blank" rel="noopener">Abrir Demonstração em Ecrã Inteiro ↗</a>
+          </div>
+          <ul class="highlights">
+            <li>⏱️ Cronómetro real que cria urgência imediata para fecharem hoje.</li>
+            <li>🏷️ Cálculo automático de desconto (-40% OFF) e preço antigo riscado.</li>
+            <li>📲 Botão WhatsApp em cada artigo: o cliente já envia o nome e o preço do produto escolhido.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2>Como funciona em 3 passos simples</h2>
+        <ol class="grid steps">
+          <li class="step">
+            <span class="step-number">1</span>
+            <h3>Escolha o seu Pacote (1 min)</h3>
+            <p>Pagamento único seguro por Cartão, Apple Pay ou Google Pay.</p>
+          </li>
+          <li class="step">
+            <span class="step-number">2</span>
+            <h3>Envie as Fotos e Preços (3 min)</h3>
+            <p>Logo após o pagamento, acede ao formulário rápido para carregar as fotos e os preços de Black Friday.</p>
+          </li>
+          <li class="step">
+            <span class="step-number">3</span>
+            <h3>Receba o Link e os Textos por Email</h3>
+            <p>Confirmado o pagamento, recebe em menos de 30 minutos o link da sua montra online e os textos prontos para disparar nos grupos e no Instagram.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="alt" id="planos">
+      <div class="container">
+        <h2>Escolha a sua montra de Black Friday</h2>
+        <p class="lead">Um único pagamento. Sem mensalidades obrigatórias.</p>
+        <div class="plans">
+          <article class="plan">
+            <h3>Montra Essencial</h3>
+            <p class="price"><strong>29€</strong><span>pagamento único</span></p>
+            <ul class="features">
+              <li>6 a 10 artigos com foto, preço antigo e preço Black Friday</li>
+              <li>Cronómetro de contagem decrescente em tempo real</li>
+              <li>Botão de encomenda direta no seu WhatsApp em cada artigo</li>
+              <li><strong>Bónus:</strong> 3 textos prontos de alta conversão para WhatsApp e Instagram</li>
+            </ul>
+            <a class="button button-green" href="#formulario" data-plan="essencial">Escolher Montra Essencial (29€)</a>
+          </article>
+          <article class="plan plan-featured">
+            <p class="ribbon">MAIS ESCOLHIDO</p>
+            <h3>Montra Destaque</h3>
+            <p class="price"><strong>49€</strong><span>pagamento único</span></p>
+            <ul class="features">
+              <li>11 a 15 artigos na montra</li>
+              <li>Barra superior de destaque (ex.: Entregas Grátis ou Desconto Extra)</li>
+              <li>Selos de escassez (“Mais Vendido” / “Últimas Unidades”)</li>
+              <li>Campo de pesquisa rápida de artigos</li>
+              <li><strong>Bónus:</strong> 5 textos prontos com cronograma de horários até às 21h</li>
+            </ul>
+            <a class="button button-green" href="#formulario" data-plan="destaque">Escolher Montra Destaque (49€)</a>
+          </article>
+        </div>
+        <p class="note">Pagamento único sem fidelização. Após a Black Friday, se desejar manter a montra ativa com atualizações semanais para o Natal, poderá aderir opcionalmente por apenas 25€/mês.</p>
+      </div>
+    </section>
+
+    <section id="formulario" hidden>
+      <div class="container">
+        <h2>Envie as fotos e os preços</h2>
+        <p class="lead">Se já pagou, use o mesmo email do pagamento. É para esse email que enviamos o link da sua montra.</p>
+
+        <form class="form" id="orderForm">
+          <fieldset>
+            <legend>O seu pacote</legend>
+            <div class="choices">
+              <label class="choice"><input type="radio" name="plano" value="essencial" checked> Essencial · 29€ · 6 a 10 artigos</label>
+              <label class="choice"><input type="radio" name="plano" value="destaque"> Destaque · 49€ · 11 a 15 artigos</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>A sua loja</legend>
+            <label class="field">Nome da loja
+              <input name="storeName" required maxlength="60" autocomplete="organization">
+            </label>
+            <label class="field">Email
+              <input name="email" type="email" required maxlength="254" autocomplete="email">
+            </label>
+            <label class="field">WhatsApp para receber encomendas (com indicativo)
+              <input name="whatsappNumber" type="tel" required inputmode="tel" pattern="[0-9+ ]{9,20}" maxlength="20" placeholder="351 912 345 678" autocomplete="tel">
+            </label>
+            <label class="field">Frase de destaque (opcional)
+              <input name="storeTagline" maxlength="100" placeholder="Ofertas Relâmpago de Black Friday">
+            </label>
+            <label class="field">Instagram (opcional)
+              <input name="instagramHandle" maxlength="40" placeholder="@asualoja" autocapitalize="none">
+            </label>
+            <label class="field">Entrega ou recolha (opcional)
+              <input name="addressOrDeliveryInfo" maxlength="140" placeholder="Recolha na loja ou entrega na sua zona">
+            </label>
+            <label class="field">As ofertas terminam em
+              <input name="countdownEndDate" type="datetime-local" required>
+            </label>
+            <label class="field" data-pro>Texto da barra de destaque (opcional)
+              <input name="promoBannerText" maxlength="120" placeholder="Entregas grátis acima de 50€">
+            </label>
+          </fieldset>
+
+          <div class="articles" id="articles"></div>
+          <button class="button button-outline" type="button" id="addArticle">+ Adicionar artigo</button>
+
+          <label class="consent">
+            <input type="checkbox" required>
+            <span>Autorizo o uso destes dados e fotos para criar e publicar a minha montra e para me contactarem sobre este pedido. Confirmo que tenho o direito de usar as fotos.</span>
+          </label>
+          <button class="button button-green" type="submit" id="submitButton">Enviar Pedido</button>
+          <p class="status" id="formStatus" role="status"></p>
+        </form>
+
+        <div class="success" id="success" hidden>
+          <h3>✅ Pedido recebido!</h3>
+          <p id="successText"></p>
+          <a class="button button-green" id="successWhatsapp" target="_blank" rel="noopener noreferrer">Confirmar no WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2>Perguntas frequentes</h2>
+        <div class="faq">
+          <details>
+            <summary>Preciso de saber programar ou ter um site?</summary>
+            <p>Não. Nós tratamos de tudo e entregamos o link pronto.</p>
+          </details>
+          <details>
+            <summary>Em quanto tempo a minha montra fica online?</summary>
+            <p>Depois de preencher o formulário, confirmamos o pagamento e a montra é gerada automaticamente. Recebe o link por email em menos de 30 minutos.</p>
+          </details>
+          <details>
+            <summary>Funciona no Instagram e no WhatsApp?</summary>
+            <p>Sim. Basta colar o link na bio do Instagram, nos Stories e nas listas de transmissão do WhatsApp.</p>
+          </details>
+          <details>
+            <summary>E depois da Black Friday?</summary>
+            <p>A montra continua sua. Se quiser trocar os artigos para as campanhas de Natal, temos um plano opcional de manutenção por 25€/mês.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+    <noscript><p class="noscript">Ative o JavaScript do navegador para ver a demonstração e enviar o seu pedido.</p></noscript>
+  </main>
+
+  <footer>
+    <div class="container">
+      <strong>Montra Relâmpago de Black Friday</strong>
+      <p>Montras online para lojistas e comércio local em Portugal.</p>
+      <p>Os dados enviados no formulário servem apenas para criar a sua montra e tratar o pedido. Para os corrigir ou apagar, fale connosco pelo WhatsApp.</p>
+    </div>
+  </footer>
+
+  <a class="fab" id="fab" target="_blank" rel="noopener noreferrer" aria-label="Tem alguma dúvida antes de avançar? Fale connosco no WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+    <span>Tem alguma dúvida antes de avançar? Fale connosco no WhatsApp</span>
+  </a>
+
+  <template id="articleTemplate">
+    <fieldset class="article">
+      <legend></legend>
+      <label class="field">Foto
+        <input data-field="file" type="file" accept="image/*" required>
+      </label>
+      <label class="field">Nome do artigo
+        <input data-field="name" required maxlength="80">
+      </label>
+      <div class="pair">
+        <label class="field">Preço antigo (€)
+          <input data-field="oldPrice" required inputmode="decimal" pattern="[0-9]{1,6}([.,][0-9]{1,2})?">
+        </label>
+        <label class="field">Preço Black Friday (€)
+          <input data-field="promoPrice" required inputmode="decimal" pattern="[0-9]{1,6}([.,][0-9]{1,2})?">
+        </label>
+      </div>
+      <div class="pair" data-pro>
+        <label class="field">Selo (opcional)
+          <select data-field="badge">
+            <option value="">Sem selo</option>
+            <option>MAIS VENDIDO</option>
+            <option>ÚLTIMAS UNIDADES</option>
+            <option>OFERTA TOP</option>
+          </select>
+        </label>
+        <label class="field">Unidades em stock (opcional)
+          <input data-field="stockLeft" inputmode="numeric" pattern="[0-9]{1,4}">
+        </label>
+      </div>
+      <button class="remove" type="button">Remover artigo</button>
+    </fieldset>
+  </template>
+
+  <script>
+    const SALES_CONFIG = {
+      demoUrl: "./template-base.html",
+      stripeLinkStarter: "https://buy.stripe.com/6oUaEQbXS3Ssde41NCawo00",
+      stripeLinkPro: "https://buy.stripe.com/dRm6oA6DyagQ8XOgIwawo01",
+      supportWhatsapp: "5575981806350",
+      offerEndsAt: "2026-11-27T23:59:59+00:00",
+      supabaseUrl: "https://hsaomakvlfrpfihuaexg.supabase.co",
+      supabaseKey: "sb_publishable_sZWDSieHqIuAU0dHOhstuQ_3xsdL3mf",
+      n8nWebhookUrl: "https://veltorati.app.n8n.cloud/webhook/montra-novo-pedido"
+    };
+
+    (() => {
+      "use strict";
+
+      const PLANS = {
+        essencial: { min: 6, max: 10, link: SALES_CONFIG.stripeLinkStarter },
+        destaque: { min: 11, max: 15, link: SALES_CONFIG.stripeLinkPro }
+      };
+      const $ = (selector) => document.querySelector(selector);
+      const isSet = (value) => Boolean(value) && !/SEU[-_]|SUA_/.test(value);
+      const phone = SALES_CONFIG.supportWhatsapp.replace(/\D/g, "");
+      const whatsappUrl = (message) => `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      const form = $("#orderForm");
+      const articles = $("#articles");
+      const offerEnd = Date.parse(SALES_CONFIG.offerEndsAt);
+      const currentPlan = () => form.elements.plano.value;
+
+      function setupLinks() {
+        $("#fab").href = whatsappUrl("Olá! Tenho uma dúvida sobre a Montra Relâmpago de Black Friday.");
+        $("#demoFrame").src = SALES_CONFIG.demoUrl;
+        $("#demoLink").href = SALES_CONFIG.demoUrl;
+
+        new ResizeObserver(([entry]) => {
+          $("#demoFrame").style.transform = `scale(${entry.contentRect.width / 390})`;
+        }).observe($("#screen"));
+      }
+
+      function setupPlans() {
+        document.querySelectorAll("[data-plan]").forEach((button) => {
+          const plan = button.dataset.plan;
+          if (isSet(PLANS[plan].link)) button.href = PLANS[plan].link;
+
+          button.addEventListener("click", (event) => {
+            if (button.getAttribute("href") !== "#formulario") return;
+            event.preventDefault();
+            openForm(plan);
+          });
+        });
+      }
+
+      function openForm(plan) {
+        form.elements.plano.value = plan;
+        $("#formulario").hidden = false;
+        syncPlan();
+        $("#formulario").scrollIntoView();
+      }
+
+      function addArticle() {
+        articles.append($("#articleTemplate").content.firstElementChild.cloneNode(true));
+      }
+
+      function isEmpty(article) {
+        return [...article.querySelectorAll("[data-field]")].every((input) => !input.value);
+      }
+
+      function syncPlan() {
+        const { min, max } = PLANS[currentPlan()];
+        while (articles.children.length < min) addArticle();
+        while (articles.children.length > max && isEmpty(articles.lastElementChild)) articles.lastElementChild.remove();
+        refreshArticles();
+      }
+
+      function refreshArticles() {
+        const { min, max } = PLANS[currentPlan()];
+        const total = articles.children.length;
+
+        [...articles.children].forEach((article, index) => {
+          article.querySelector("legend").textContent = `Artigo ${index + 1}`;
+          article.querySelector(".remove").hidden = total <= min;
+        });
+        form.querySelectorAll("[data-pro]").forEach((element) => {
+          element.hidden = currentPlan() !== "destaque";
+          element.querySelectorAll("input, select").forEach((input) => {
+            input.disabled = element.hidden;
+          });
+        });
+        $("#addArticle").hidden = total >= max;
+      }
+
+      const toPrice = (value) => Number(value.replace(",", "."));
+
+      function checkPrices(article) {
+        const oldPrice = article.querySelector('[data-field="oldPrice"]').value;
+        const promo = article.querySelector('[data-field="promoPrice"]');
+        const invalid = oldPrice && promo.value && !(toPrice(promo.value) > 0 && toPrice(promo.value) < toPrice(oldPrice));
+        promo.setCustomValidity(invalid ? "O preço Black Friday tem de ser inferior ao preço antigo." : "");
+      }
+
+      async function squarePhoto(file, number) {
+        const url = URL.createObjectURL(file);
+        try {
+          const image = new Image();
+          image.src = url;
+          await image.decode();
+          const side = Math.min(image.naturalWidth, image.naturalHeight);
+          const canvas = document.createElement("canvas");
+          canvas.width = canvas.height = Math.min(800, side);
+          const context = canvas.getContext("2d");
+          context.fillStyle = "#fff";
+          context.fillRect(0, 0, canvas.width, canvas.height);
+          context.drawImage(image, (image.naturalWidth - side) / 2, (image.naturalHeight - side) / 2, side, side, 0, 0, canvas.width, canvas.height);
+          const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.82));
+          if (!blob) throw new Error();
+          return blob;
+        } catch {
+          throw new Error(`Não foi possível ler a foto do artigo ${number}. Use uma imagem JPG ou PNG.`);
+        } finally {
+          URL.revokeObjectURL(url);
+        }
+      }
+
+      async function supabase(path, options) {
+        const base = SALES_CONFIG.supabaseUrl.replace(/\/+$/, "");
+        let response;
+        try {
+          response = await fetch(base + path, {
+            ...options,
+            headers: {
+              apikey: SALES_CONFIG.supabaseKey,
+              Authorization: `Bearer ${SALES_CONFIG.supabaseKey}`,
+              ...options.headers
+            }
+          });
+        } catch {
+          throw new Error("Falha de ligação. Verifique a internet e tente novamente.");
+        }
+        const body = await response.json().catch(() => null);
+        if (!response.ok) throw new Error(body?.message || "Não foi possível enviar o pedido. Tente novamente.");
+        return body;
+      }
+
+      function showStatus(message, isError) {
+        $("#formStatus").textContent = message;
+        $("#formStatus").classList.toggle("status-error", Boolean(isError));
+      }
+
+      async function sendOrder() {
+        const data = new FormData(form);
+        const text = (name) => String(data.get(name) || "").trim();
+        const plan = currentPlan();
+        const rows = [...articles.children];
+        const { min, max } = PLANS[plan];
+
+        if (rows.length < min || rows.length > max) {
+          throw new Error(`Este pacote aceita entre ${min} e ${max} artigos. Tem ${rows.length}.`);
+        }
+        if (!isSet(SALES_CONFIG.supabaseUrl) || !isSet(SALES_CONFIG.supabaseKey)) {
+          throw new Error("O formulário ainda não está ativo. Fale connosco no WhatsApp.");
+        }
+        const endDate = new Date(text("countdownEndDate"));
+        if (!(endDate.getTime() > Date.now())) {
+          throw new Error("A data de fim das ofertas tem de ser no futuro.");
+        }
+
+        const photos = [];
+        for (const [index, row] of rows.entries()) {
+          showStatus(`A preparar a foto ${index + 1} de ${rows.length}…`);
+          photos.push(await squarePhoto(row.querySelector('[data-field="file"]').files[0], index + 1));
+        }
+
+        const folder = crypto.randomUUID();
+        const products = [];
+        for (const [index, row] of rows.entries()) {
+          const value = (field) => {
+            const input = row.querySelector(`[data-field="${field}"]`);
+            return input.disabled ? "" : input.value.trim();
+          };
+          const path = `${folder}/${index + 1}.jpg`;
+          showStatus(`A enviar a foto ${index + 1} de ${rows.length}…`);
+          await supabase(`/storage/v1/object/montras/${path}`, {
+            method: "POST",
+            headers: { "Content-Type": "image/jpeg" },
+            body: photos[index]
+          });
+          products.push({
+            name: value("name"),
+            photo: path,
+            oldPrice: toPrice(value("oldPrice")).toFixed(2),
+            promoPrice: toPrice(value("promoPrice")).toFixed(2),
+            badge: value("badge"),
+            stockLeft: value("stockLeft")
+          });
+        }
+
+        showStatus("A registar o pedido…");
+        const id = await supabase("/rest/v1/rpc/criar_pedido", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            p_dados: {
+              plano: plan,
+              email: text("email"),
+              loja: {
+                storeName: text("storeName"),
+                storeTagline: text("storeTagline"),
+                whatsappNumber: text("whatsappNumber"),
+                instagramHandle: text("instagramHandle"),
+                addressOrDeliveryInfo: text("addressOrDeliveryInfo"),
+                countdownEndDate: endDate.toISOString(),
+                promoBannerText: text("promoBannerText"),
+                products
+              }
+            }
+          })
+        });
+
+        if (isSet(SALES_CONFIG.n8nWebhookUrl)) {
+          await fetch(SALES_CONFIG.n8nWebhookUrl, {
+            method: "POST",
+            mode: "no-cors",
+            keepalive: true,
+            body: new URLSearchParams({ id })
+          }).catch(() => {});
+        }
+
+        return { id, plan, email: text("email"), store: text("storeName") };
+      }
+
+      function showSuccess({ id, plan, email, store }) {
+        const reference = id.slice(0, 8).toUpperCase();
+        $("#successText").textContent = isSet(PLANS[plan].link)
+          ? `Assim que o pagamento estiver confirmado, enviamos o link para ${email} em menos de 30 minutos. Referência: ${reference}.`
+          : `Vamos contactar ${email} para concluir o pagamento. Depois de confirmado, recebe o link em menos de 30 minutos. Referência: ${reference}.`;
+        $("#successWhatsapp").href = whatsappUrl(`Olá! Enviei o pedido ${reference} da loja ${store} (pacote ${plan}).`);
+        form.hidden = true;
+        $("#success").hidden = false;
+        $("#formulario").scrollIntoView();
+      }
+
+      function setupForm() {
+        const local = new Date(offerEnd - new Date(offerEnd).getTimezoneOffset() * 60000);
+        if (offerEnd > Date.now()) form.elements.countdownEndDate.value = local.toISOString().slice(0, 16);
+
+        form.addEventListener("change", (event) => {
+          if (event.target.name === "plano") syncPlan();
+        });
+        articles.addEventListener("input", (event) => checkPrices(event.target.closest(".article")));
+        articles.addEventListener("click", (event) => {
+          if (!event.target.classList.contains("remove")) return;
+          event.target.closest(".article").remove();
+          refreshArticles();
+        });
+        $("#addArticle").addEventListener("click", () => {
+          addArticle();
+          refreshArticles();
+        });
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const button = $("#submitButton");
+          button.disabled = true;
+          try {
+            showSuccess(await sendOrder());
+          } catch (error) {
+            showStatus(error.message, true);
+          } finally {
+            button.disabled = false;
+          }
+        });
+      }
+
+      function startCountdown() {
+        const timer = $("#timer");
+        const pad = (value) => String(value).padStart(2, "0");
+        const lisbonDay = (time) => new Intl.DateTimeFormat("pt-PT", { timeZone: "Europe/Lisbon", day: "2-digit", month: "2-digit" }).format(time);
+        let timeout;
+
+        const tick = () => {
+          clearTimeout(timeout);
+          const remaining = offerEnd - Date.now();
+
+          if (!(remaining > 0)) {
+            timer.hidden = true;
+            $("#urgencyText").textContent = "A campanha de Black Friday terminou • Fale connosco para saber as condições atuais";
+            document.querySelectorAll("[data-plan]").forEach((button) => {
+              button.href = whatsappUrl(`Olá! A campanha terminou, mas queria saber as condições atuais da Montra ${button.dataset.plan}.`);
+              button.target = "_blank";
+              button.textContent = "Perguntar condições atuais";
+            });
+            return;
+          }
+
+          const day = lisbonDay(Date.now()) === lisbonDay(offerEnd) ? "Hoje" : lisbonDay(offerEnd);
+          const label = `⚡ Black Friday ${day} • Montra online em menos de 30 minutos • Vagas relâmpago encerram em:`;
+          if ($("#urgencyText").textContent !== label) $("#urgencyText").textContent = label;
+
+          const seconds = Math.ceil(remaining / 1000);
+          timer.textContent = `${pad(Math.floor(seconds / 3600))}h : ${pad(Math.floor(seconds / 60) % 60)}m : ${pad(seconds % 60)}s`;
+          timeout = setTimeout(tick, (remaining % 1000) || 1000);
+        };
+
+        document.addEventListener("visibilitychange", () => {
+          if (!document.hidden) tick();
+        });
+        tick();
+      }
+
+      setupLinks();
+      setupPlans();
+      setupForm();
+      startCountdown();
+
+      const returned = new URLSearchParams(location.search).get("plano");
+      if (Object.hasOwn(PLANS, returned)) openForm(returned);
+    })();
+  </script>
+</body>
+</html>

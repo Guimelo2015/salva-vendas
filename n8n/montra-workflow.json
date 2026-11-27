@@ -1,0 +1,492 @@
+{
+  "name": "Montra Relâmpago",
+  "nodes": [
+    {
+      "id": "82bab4ba-704a-47ea-85d8-adbf78b72143",
+      "name": "Novo Pedido",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "montra-novo-pedido",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "webhookId": "d0b79f9a-9442-4f43-b07d-517aa7a927db"
+    },
+    {
+      "id": "c1d3faea-b9e0-4973-80e7-c06a0feeed29",
+      "name": "Abrir Aprovação",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "montra-aprovar",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "webhookId": "66119dd0-d4e7-40b8-bc76-b84d1cdbf7b6"
+    },
+    {
+      "id": "c5709efd-5282-4bee-ab28-2f7b70348c10",
+      "name": "Confirmar Aprovação",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        600
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "montra-aprovar",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "webhookId": "a1f02d14-2047-47fe-b8a9-601991dc73bd"
+    },
+    {
+      "id": "4b13bb82-6449-4238-9965-bad3016edeb1",
+      "name": "Configuração",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const CONFIG = {\n  supabaseUrl: \"https://hsaomakvlfrpfihuaexg.supabase.co\",\n  emailDono: \"SEU_EMAIL@gmail.com\",\n  siteUrl: \"https://salva-vendas.vercel.app\",\n  webhookUrl: \"https://veltorati.app.n8n.cloud/webhook\",\n  stripeEssencial: \"https://buy.stripe.com/SEU_LINK_29\",\n  stripeDestaque: \"https://buy.stripe.com/SEU_LINK_49\"\n};\nconst rota = $(\"Novo Pedido\").isExecuted ? \"novo\" : $(\"Abrir Aprovação\").isExecuted ? \"abrir\" : \"confirmar\";\nconst entrada = $input.first().json;\nreturn [{ json: { ...CONFIG, rota, query: entrada.query || {}, body: entrada.body || {} } }];"
+      }
+    },
+    {
+      "id": "1ff6639c-50a8-4786-bcf8-34ff8dc61aa4",
+      "name": "Validar Pedido",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const dados = $input.first().json;\nif (dados.rota !== \"novo\") return [];\nconst id = String(dados.body.id || \"\");\nif (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) return [];\nreturn [{ json: {\n  url: `${dados.supabaseUrl}/rest/v1/pedidos?id=eq.${id}&notificado_em=is.null`,\n  patch: { notificado_em: new Date().toISOString() }\n} }];"
+      }
+    },
+    {
+      "id": "7c418975-823b-4365-9a78-4e9ec360b8b1",
+      "name": "Reservar Pedido",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        780,
+        0
+      ],
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $json.url }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "supabaseApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.patch) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "97aee5f0-3ff1-43bb-96a7-73f0eafdc272",
+      "name": "Preparar Emails",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        0
+      ],
+      "parameters": {
+        "jsCode": "const config = $(\"Configuração\").first().json;\nconst pedido = $input.first().json;\nif (!pedido.id) return [];\nconst limpar = (texto) => String(texto ?? \"\").replace(/[&<>\"']/g, (c) => `&#${c.charCodeAt(0)};`);\nconst loja = pedido.loja;\nconst destaque = pedido.plano === \"destaque\";\nconst preco = destaque ? \"49€\" : \"29€\";\nconst stripe = destaque ? config.stripeDestaque : config.stripeEssencial;\nconst referencia = pedido.id.slice(0, 8).toUpperCase();\nconst aprovar = `${config.webhookUrl}/montra-aprovar?id=${pedido.id}&token=${pedido.token}`;\nconst previa = loja.products.map((a) => `<li>${limpar(a.name)}: ${a.oldPrice}€ → <b>${a.promoPrice}€</b> (<a href=\"${config.supabaseUrl}/storage/v1/object/public/montras/${a.photo}\">foto</a>)</li>`).join(\"\");\nconst pagamento = stripe.includes(\"SEU_LINK\")\n  ? \"<p>Vamos enviar-lhe as instruções de pagamento.</p>\"\n  : `<p>Se ainda não pagou, conclua aqui: <a href=\"${stripe}?prefilled_email=${encodeURIComponent(pedido.email)}\">pagar ${preco}</a>.</p>`;\n\nreturn [{ json: {\n  donoPara: config.emailDono,\n  donoAssunto: `Novo pedido ${referencia}: ${loja.storeName} (${preco})`,\n  donoHtml: `<h2>Novo pedido de montra</h2>\n<p><b>${limpar(loja.storeName)}</b><br>Pacote: ${pedido.plano} (${preco})<br>Email: ${limpar(pedido.email)}<br>WhatsApp: <a href=\"https://wa.me/${loja.whatsappNumber}\">${loja.whatsappNumber}</a><br>Referência: ${referencia}</p>\n<ol>${previa}</ol>\n<p><b>Confirme o pagamento na Stripe antes de aprovar.</b></p>\n<p><a href=\"${aprovar}\" style=\"display:inline-block;padding:14px 22px;background:#22C55E;color:#04210F;font-weight:bold;border-radius:8px;text-decoration:none\">Rever e aprovar montra</a></p>`,\n  clientePara: pedido.email,\n  clienteAssunto: `Recebemos o seu pedido (${referencia})`,\n  clienteHtml: `<p>Olá!</p><p>Recebemos o pedido da montra da <b>${limpar(loja.storeName)}</b>, pacote ${pedido.plano} (${preco}).</p>${pagamento}<p>Depois de confirmado o pagamento, enviamos o link da montra em menos de 30 minutos.</p>`\n} }];"
+      }
+    },
+    {
+      "id": "00385127-9bb8-4fbf-adee-405d704cd18d",
+      "name": "Email para Si",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1320,
+        -100
+      ],
+      "parameters": {
+        "sendTo": "={{ $json.donoPara }}",
+        "subject": "={{ $json.donoAssunto }}",
+        "emailType": "html",
+        "message": "={{ $json.donoHtml }}",
+        "options": {
+          "appendAttribution": false
+        }
+      }
+    },
+    {
+      "id": "d0a60154-1479-4048-9c54-25fab3bf4f57",
+      "name": "Email ao Lojista",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1320,
+        100
+      ],
+      "parameters": {
+        "sendTo": "={{ $json.clientePara }}",
+        "subject": "={{ $json.clienteAssunto }}",
+        "emailType": "html",
+        "message": "={{ $json.clienteHtml }}",
+        "options": {
+          "appendAttribution": false
+        }
+      }
+    },
+    {
+      "id": "885acbe7-0aff-4043-9ca1-ac799f64c76b",
+      "name": "Página de Confirmação",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const dados = $input.first().json;\nif (dados.rota !== \"abrir\") return [];\nconst uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;\nconst valido = uuid.test(dados.query.id) && uuid.test(dados.query.token);\nconst conteudo = valido\n  ? `<h2>Aprovar montra ${dados.query.id.slice(0, 8).toUpperCase()}</h2><p>Confirmou o pagamento na Stripe?</p><form method=\"post\" action=\"\"><button style=\"padding:16px 26px;background:#22C55E;border:0;border-radius:10px;font-size:17px;font-weight:bold\">Sim, aprovar e enviar ao lojista</button></form>`\n  : \"<h2>Ligação inválida</h2>\";\nreturn [{ json: { html: `<!doctype html><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><body style=\"font-family:sans-serif;text-align:center;padding:40px 16px\">${conteudo}</body>` } }];"
+      }
+    },
+    {
+      "id": "631d7427-d1de-4e87-bcd7-84577107f81f",
+      "name": "Mostrar Confirmação",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        780,
+        300
+      ],
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.html }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=utf-8"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "e2b49b96-e579-4600-a0cc-d29a53629c99",
+      "name": "Validar Aprovação",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        600
+      ],
+      "parameters": {
+        "jsCode": "const dados = $input.first().json;\nif (dados.rota !== \"confirmar\") return [];\nconst uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;\nconst nulo = \"00000000-0000-0000-0000-000000000000\";\nconst id = uuid.test(dados.query.id) ? dados.query.id : nulo;\nconst token = uuid.test(dados.query.token) ? dados.query.token : nulo;\nreturn [{ json: {\n  url: `${dados.supabaseUrl}/rest/v1/pedidos?id=eq.${id}&token=eq.${token}&estado=eq.pendente`,\n  patch: { estado: \"aprovado\", aprovado_em: new Date().toISOString() }\n} }];"
+      }
+    },
+    {
+      "id": "b837b793-89a2-43b8-b41d-a81ca3ecab9d",
+      "name": "Aprovar no Supabase",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        780,
+        600
+      ],
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $json.url }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "supabaseApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.patch) }}",
+        "options": {}
+      },
+      "alwaysOutputData": true
+    },
+    {
+      "id": "19540703-6f0b-4eb1-9258-7b2c29080e58",
+      "name": "Preparar Entrega",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        600
+      ],
+      "parameters": {
+        "jsCode": "const config = $(\"Configuração\").first().json;\nconst pedido = $input.first().json;\nconst pagina = (conteudo) => `<!doctype html><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><body style=\"font-family:sans-serif;text-align:center;padding:40px 16px\">${conteudo}</body>`;\n\nif (!pedido.id) {\n  return [{ json: { aprovado: false, html: pagina(\"<h2>Nada para aprovar</h2><p>Este pedido já foi aprovado ou a ligação é inválida.</p>\") } }];\n}\n\nconst limpar = (texto) => String(texto ?? \"\").replace(/[&<>\"']/g, (c) => `&#${c.charCodeAt(0)};`);\nconst loja = pedido.loja;\nconst link = `${config.siteUrl}/template-base.html?loja=${pedido.id}`;\nconst nome = loja.storeName;\nconst melhor = Math.max(...loja.products.map((a) => Math.floor((1 - a.promoPrice / a.oldPrice) * 100 + 1e-9)));\nconst textos = [\n  [\"Abertura\", `⚡ BLACK FRIDAY na ${nome}! Descontos até ${melhor}% por tempo limitado. Veja a montra e encomende pelo WhatsApp: ${link}`],\n  [\"Stories do Instagram\", `🔥 A nossa montra de Black Friday está no ar. Toque no link, escolha o seu artigo e encomende em segundos: ${link}`],\n  [\"Lembrete\", `⏰ O cronómetro está a contar! As ofertas da ${nome} terminam em breve. Dê uma vista de olhos: ${link}`]\n];\nif (pedido.plano === \"destaque\") {\n  textos.push(\n    [\"Stock\", `👀 Há artigos a esgotar na ${nome}. Garanta o seu antes que acabe: ${link}`],\n    [\"Última chamada\", `🚨 Última chamada de Black Friday! Encomende agora na ${nome}: ${link}`]\n  );\n  const horas = [\"09h00\", \"12h30\", \"15h00\", \"18h00\", \"21h00\"];\n  const ordem = [0, 1, 3, 2, 4];\n  const agenda = ordem.map((indice, posicao) => [`${horas[posicao]} · ${textos[indice][0]}`, textos[indice][1]]);\n  textos.splice(0, textos.length, ...agenda);\n}\nconst blocos = textos.map(([titulo, texto]) => `<h3>${limpar(titulo)}</h3><p style=\"padding:12px;background:#f4f4f5;border-radius:8px\">${limpar(texto)}</p>`).join(\"\");\nconst mensagem = `Olá! A sua montra de Black Friday já está online: ${link}`;\n\nreturn [{ json: {\n  aprovado: true,\n  html: pagina(`<h2>✅ Montra aprovada</h2><p><a href=\"${link}\">${link}</a></p><p><a href=\"https://wa.me/${loja.whatsappNumber}?text=${encodeURIComponent(mensagem)}\">Enviar também por WhatsApp</a></p>`),\n  clientePara: pedido.email,\n  clienteAssunto: \"A sua montra de Black Friday está online 🎉\",\n  clienteHtml: `<p>Olá!</p><p>A montra da <b>${limpar(nome)}</b> já está online:</p><p><a href=\"${link}\">${link}</a></p><h2>Textos prontos a publicar</h2>${blocos}<p>Boas vendas!</p>`,\n  donoPara: config.emailDono,\n  donoAssunto: `Montra entregue: ${nome}`,\n  donoHtml: `<p>Montra aprovada e enviada para ${limpar(pedido.email)}.</p><p><a href=\"${link}\">${link}</a></p>`\n} }];"
+      }
+    },
+    {
+      "id": "ee7e5d5b-2e2e-4015-aad8-0b60913f4a74",
+      "name": "Mostrar Resultado",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1320,
+        500
+      ],
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.html }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=utf-8"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "c541bf6c-6865-4f9a-987b-1c80f5f8d561",
+      "name": "Só Aprovados",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1320,
+        720
+      ],
+      "parameters": {
+        "jsCode": "return $input.all().filter((item) => item.json.aprovado);"
+      }
+    },
+    {
+      "id": "3a20796a-8b95-48bb-bd46-3ab01a34ef5a",
+      "name": "Entregar ao Lojista",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1580,
+        620
+      ],
+      "parameters": {
+        "sendTo": "={{ $json.clientePara }}",
+        "subject": "={{ $json.clienteAssunto }}",
+        "emailType": "html",
+        "message": "={{ $json.clienteHtml }}",
+        "options": {
+          "appendAttribution": false
+        }
+      }
+    },
+    {
+      "id": "61cfc765-6ff0-431b-b796-faa0a87d949c",
+      "name": "Avisar Entrega",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1580,
+        820
+      ],
+      "parameters": {
+        "sendTo": "={{ $json.donoPara }}",
+        "subject": "={{ $json.donoAssunto }}",
+        "emailType": "html",
+        "message": "={{ $json.donoHtml }}",
+        "options": {
+          "appendAttribution": false
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Novo Pedido": {
+      "main": [
+        [
+          {
+            "node": "Configuração",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Abrir Aprovação": {
+      "main": [
+        [
+          {
+            "node": "Configuração",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirmar Aprovação": {
+      "main": [
+        [
+          {
+            "node": "Configuração",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configuração": {
+      "main": [
+        [
+          {
+            "node": "Validar Pedido",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Página de Confirmação",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Validar Aprovação",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar Pedido": {
+      "main": [
+        [
+          {
+            "node": "Reservar Pedido",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reservar Pedido": {
+      "main": [
+        [
+          {
+            "node": "Preparar Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Emails": {
+      "main": [
+        [
+          {
+            "node": "Email para Si",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Email ao Lojista",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Página de Confirmação": {
+      "main": [
+        [
+          {
+            "node": "Mostrar Confirmação",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar Aprovação": {
+      "main": [
+        [
+          {
+            "node": "Aprovar no Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aprovar no Supabase": {
+      "main": [
+        [
+          {
+            "node": "Preparar Entrega",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Entrega": {
+      "main": [
+        [
+          {
+            "node": "Mostrar Resultado",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Só Aprovados",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Só Aprovados": {
+      "main": [
+        [
+          {
+            "node": "Entregar ao Lojista",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Avisar Entrega",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
